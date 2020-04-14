@@ -1,15 +1,15 @@
-package sgx
+package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	// "io/ioutil"
 	"net"
-	"net/http"
+	// "net/http"
 	"os"
-	"os/exec"
+	// "os/exec"
 	"path"
-	"regexp"
-	"strconv"
+	// "regexp"
+	// "strconv"
 	"syscall"
 	"time"
 
@@ -49,7 +49,7 @@ func NewSGXLKLManager() (*SGXLKLManager, error) {
 func (m *SGXLKLManager) checkSGXLKLPresent() error {
 	// confirm presense of SGX-LKL driver
 	stat := syscall.Stat_t{}
-	if err = syscall.Stat(devicePath, &stat); err != nil {
+	if err := syscall.Stat(devicePath, &stat); err != nil {
 		return err
 	}
 	// allocate devices
