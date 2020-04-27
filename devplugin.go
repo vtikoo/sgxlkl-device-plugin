@@ -24,7 +24,7 @@ const (
 	resourceName   = "microsoft.io/cc_enabled"
 	pluginEndpoint = "sgxlkl.sock"
 	socketPath     = pluginapi.DevicePluginPath + pluginEndpoint
-	devicePath     = "/opt/sgxlkl"
+	devicePath     = "/opt/sgx-lkl"
 )
 
 // SGXLKLManager implements device plugin interface
@@ -167,10 +167,10 @@ func (m *SGXLKLManager) Allocate(ctx context.Context, req *pluginapi.AllocateReq
 	for _, creq := range req.ContainerRequests {
 		cresp := new(pluginapi.ContainerAllocateResponse)
 		glog.Infof("Request devices %v", creq.DevicesIDs)
-		cresp.Devices = append(cresp.Devices, &pluginapi.DeviceSpec{
+		cresp.Mounts = append(cresp.Mounts, &pluginapi.Mount{
 			HostPath:      devicePath,
 			ContainerPath: devicePath,
-			Permissions:   "rw",
+			ReadOnly:   false,
 		})
 		resp.ContainerResponses = append(resp.ContainerResponses, cresp)
 	}
